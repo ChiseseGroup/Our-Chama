@@ -19,7 +19,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen">
 
-    <!-- 1. AUTHENTICATION / LOGIN SCREEN (Default Visible) -->
+    <!-- 1. AUTHENTICATION (LOGIN & SIGN-UP SCREEN) -->
     <div id="auth-screen" class="fixed inset-0 z-50 bg-slate-900 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl space-y-6">
             <div class="text-center space-y-2">
@@ -27,15 +27,18 @@
                     <i data-lucide="shield-check" class="w-8 h-8"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-slate-900">Chinese Welfare Group</h2>
-                <p class="text-xs text-slate-500">Authorized Financial Management System Login</p>
+                <p class="text-xs text-slate-500" id="auth-subtitle">Sign in to access your financial portal</p>
             </div>
 
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-blue-900 space-y-1">
+            <!-- Demo Credentials Box -->
+            <div id="demo-credentials-box" class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-blue-900 space-y-1">
                 <p class="font-semibold">Demo Credentials:</p>
                 <p><span class="font-medium">Admin:</span> ericmauti933@gmail.com / admin123</p>
                 <p><span class="font-medium">Member:</span> john.mauti@example.com / user123</p>
+                <p><span class="font-medium">Invite Code:</span> <code class="bg-blue-100 px-1 py-0.5 rounded font-mono font-bold">CWG-2026-SECURE</code></p>
             </div>
 
+            <!-- LOGIN FORM -->
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-medium text-slate-700">Email Address</label>
@@ -48,11 +51,52 @@
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg text-sm transition shadow-md shadow-blue-500/20">
                     Sign In to System
                 </button>
+                <div class="text-center pt-2 border-t border-slate-100">
+                    <p class="text-xs text-slate-500">Don't have an account? <a href="#" onclick="toggleAuthView('signup')" class="text-blue-600 font-bold hover:underline">Sign Up Now</a></p>
+                </div>
+            </form>
+
+            <!-- SIGN-UP FORM (Hidden by default) -->
+            <form id="signup-form" onsubmit="handleSignUp(event)" class="hidden space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Full Name</label>
+                    <input type="text" id="signup-name" required placeholder="John Mauti" oninput="previewSignUpID()" class="mt-1 block w-full rounded-lg border-slate-300 border p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Date of Birth</label>
+                    <input type="date" id="signup-dob" required oninput="previewSignUpID()" class="mt-1 block w-full rounded-lg border-slate-300 border p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-2.5">
+                    <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Generated Unique Member ID</label>
+                    <p id="signup-id-preview" class="text-sm font-mono font-bold text-blue-600 mt-0.5">-------</p>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="you@example.com" class="mt-1 block w-full rounded-lg border-slate-300 border p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Phone Number (M-Pesa)</label>
+                    <input type="tel" id="signup-phone" required placeholder="0712345678" class="mt-1 block w-full rounded-lg border-slate-300 border p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Create Password</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••" class="mt-1 block w-full rounded-lg border-slate-300 border p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Group Invite Passcode</label>
+                    <input type="password" id="signup-passcode" required placeholder="Enter invite code" class="mt-1 block w-full rounded-lg border-slate-300 border p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 rounded-lg text-sm transition shadow-md shadow-emerald-500/20">
+                    Create Account & Submit Application
+                </button>
+                <div class="text-center pt-2 border-t border-slate-100">
+                    <p class="text-xs text-slate-500">Already have an account? <a href="#" onclick="toggleAuthView('login')" class="text-blue-600 font-bold hover:underline">Back to Login</a></p>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- 2. MAIN PROTECTED APPLICATION WORKSPACE (Hidden until authenticated) -->
+    <!-- 2. MAIN PROTECTED APPLICATION WORKSPACE -->
     <div id="app-workspace" class="hidden">
         
         <!-- Top Navigation -->
@@ -69,10 +113,9 @@
                         </div>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <!-- Authenticated User Profile Pill & Logout -->
                         <div class="flex items-center space-x-3 bg-slate-100 border border-slate-200 rounded-full py-1 px-3">
                             <div class="w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center" id="user-avatar-initials">
-                                EA
+                                EM
                             </div>
                             <div class="text-left pr-1">
                                 <p class="text-xs font-bold text-slate-800 leading-none" id="user-display-name">Eric Mauti</p>
@@ -143,7 +186,6 @@
                     </div>
                 </div>
 
-                <!-- Charts Section -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                         <h3 class="text-base font-semibold text-slate-900 mb-4">2026 Monthly Contribution Trend</h3>
@@ -163,12 +205,10 @@
             <!-- TAB 2: MEMBERS & APPROVAL QUEUE -->
             <div id="view-members" class="hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Registration Form / Public Join Simulator -->
                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
                         <div>
-                            <h3 class="text-base font-semibold text-slate-900 mb-1">New Member Application</h3>
-                            <p class="text-xs text-slate-500">Applicants must submit a valid Group Invite Passcode to enter the review queue.</p>
+                            <h3 class="text-base font-semibold text-slate-900 mb-1">New Member Registration</h3>
+                            <p class="text-xs text-slate-500">Add an approved member directly into the system database.</p>
                         </div>
                         
                         <form id="member-form" onsubmit="handleRegisterMember(event)" class="space-y-3">
@@ -181,7 +221,7 @@
                                 <input type="date" id="reg-dob" required oninput="previewMemberID()" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-700">Email Address (For Secure Code Dispatch)</label>
+                                <label class="block text-xs font-medium text-slate-700">Email Address</label>
                                 <input type="email" id="reg-email" required placeholder="ericmauti933@gmail.com" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                             </div>
                             <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
@@ -197,18 +237,16 @@
                                 <input type="number" id="reg-pledge" value="5000" required class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-700">Group Invite Passcode / Code</label>
+                                <label class="block text-xs font-medium text-slate-700">Group Invite Passcode</label>
                                 <input type="password" id="reg-invite-code" required placeholder="Enter secret code" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                             </div>
                             <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition">
-                                Submit Join Application
+                                Submit Member Application
                             </button>
                         </form>
                     </div>
 
-                    <!-- Rosters & Approval Queues -->
                     <div class="lg:col-span-2 space-y-6">
-                        <!-- Pending Approvals Queue -->
                         <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                             <div class="p-4 border-b border-slate-200 bg-amber-50 flex justify-between items-center">
                                 <div class="flex items-center space-x-2 text-amber-800">
@@ -229,13 +267,11 @@
                                         </tr>
                                     </thead>
                                     <tbody id="pending-table-body" class="divide-y divide-slate-100">
-                                        <!-- Dynamic Render -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <!-- Active Members Roster -->
                         <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                             <div class="p-4 border-b border-slate-200 flex justify-between items-center">
                                 <h3 class="text-base font-semibold text-slate-900">Approved Active Members Roster</h3>
@@ -254,13 +290,11 @@
                                         </tr>
                                     </thead>
                                     <tbody id="member-table-body" class="divide-y divide-slate-100">
-                                        <!-- Dynamic Render -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -295,7 +329,6 @@
                                 </tr>
                             </thead>
                             <tbody id="matrix-table-body" class="divide-y divide-slate-100">
-                                <!-- Dynamic Render -->
                             </tbody>
                         </table>
                     </div>
@@ -463,7 +496,6 @@
 
     <!-- JS Logic -->
     <script>
-        // System Auth & Session State
         let currentSession = null;
 
         const authorizedUsers = [
@@ -471,21 +503,18 @@
             { email: "john.mauti@example.com", password: "user123", name: "John Mauti", role: "member", initials: "JM" }
         ];
 
-        // Security Settings State
         let securityConfig = {
             invitePasscode: "CWG-2026-SECURE",
             requireApproval: true,
             adminEmail: "ericmauti933@gmail.com"
         };
 
-        // Active Approved Members Database
         let members = [
             { id: "Mauti18041995", name: "John Mauti", dob: "1995-04-18", email: "john.mauti@example.com", phone: "0712345678", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 5000 } },
             { id: "Ochieng12101990", name: "Sarah Ochieng", dob: "1990-10-12", email: "sarah.ochieng@example.com", phone: "0723456789", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 0 } },
             { id: "Kamau05011988", name: "David Kamau", dob: "1988-01-05", email: "david.kamau@example.com", phone: "0734567890", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 2500 } }
         ];
 
-        // Pending Approval Queue
         let pendingApplicants = [
             { id: "Wanjiru14021994", name: "Alice Wanjiru", dob: "1994-02-14", email: "alice.wanjiru@example.com", phone: "0745123456", pledge: 5000 }
         ];
@@ -498,12 +527,81 @@
 
         let trendChart, channelChart;
 
-        // Initialize App icons on load
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
 
-        // Login Handler
+        function toggleAuthView(view) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const demoBox = document.getElementById('demo-credentials-box');
+            const subtitle = document.getElementById('auth-subtitle');
+
+            if (view === 'signup') {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                demoBox.classList.add('hidden');
+                subtitle.innerText = "Create a new member account & request join authorization";
+            } else {
+                signupForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                demoBox.classList.remove('hidden');
+                subtitle.innerText = "Sign in to access your financial portal";
+            }
+            lucide.createIcons();
+        }
+
+        function previewSignUpID() {
+            const name = document.getElementById('signup-name').value;
+            const dob = document.getElementById('signup-dob').value;
+            document.getElementById('signup-id-preview').innerText = generateMemberID(name, dob);
+        }
+
+        function handleSignUp(e) {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value.trim();
+            const dob = document.getElementById('signup-dob').value;
+            const email = document.getElementById('signup-email').value.trim();
+            const phone = document.getElementById('signup-phone').value.trim();
+            const password = document.getElementById('signup-password').value.trim();
+            const passcode = document.getElementById('signup-passcode').value.trim();
+
+            if (passcode !== securityConfig.invitePasscode) {
+                showModal("Passcode Error", "Invalid Group Invite Passcode. Contact group admin for access code.", "alert-circle", "text-red-600", "bg-red-100");
+                return;
+            }
+
+            if (authorizedUsers.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                showModal("Account Exists", "An account with this email address already exists. Please log in.", "alert-circle", "text-amber-600", "bg-amber-100");
+                return;
+            }
+
+            const generatedId = generateMemberID(name, dob);
+
+            pendingApplicants.push({
+                id: generatedId,
+                name: name,
+                dob: dob,
+                email: email,
+                phone: phone,
+                pledge: 5000
+            });
+
+            authorizedUsers.push({
+                email: email,
+                password: password,
+                name: name,
+                role: "member",
+                initials: name.split(' ').map(n => n[0]).join('')
+            });
+
+            document.getElementById('signup-form').reset();
+            document.getElementById('signup-id-preview').innerText = "-------";
+            toggleAuthView('login');
+
+            showModal("Sign-Up Complete!", `Account created for ${name} (${generatedId}). Your application is queued for Admin approval. You may now test logging in with your credentials.`, "check-circle-2", "text-emerald-600", "bg-emerald-100");
+        }
+
         function handleLogin(e) {
             e.preventDefault();
             const emailInput = document.getElementById('login-email').value.trim();
@@ -516,7 +614,6 @@
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('app-workspace').classList.remove('hidden');
 
-                // Update UI Profile Pill
                 document.getElementById('user-display-name').innerText = user.name;
                 document.getElementById('user-display-role').innerText = user.role;
                 document.getElementById('user-avatar-initials').innerText = user.initials;
@@ -534,7 +631,6 @@
             }
         }
 
-        // Logout Handler
         function handleLogout() {
             currentSession = null;
             document.getElementById('login-form').reset();
@@ -542,7 +638,6 @@
             document.getElementById('auth-screen').classList.remove('hidden');
         }
 
-        // Tab Switching
         function switchTab(tabName) {
             const tabs = ['dashboard', 'members', 'matrix', 'mpesa', 'reconciliation', 'security'];
             tabs.forEach(t => {
@@ -557,7 +652,6 @@
             lucide.createIcons();
         }
 
-        // Custom Member ID Generator Logic: Surname + DDMMYYYY
         function generateMemberID(fullName, dobString) {
             if (!fullName || !dobString) return "-------";
             const nameParts = fullName.trim().split(/\s+/);
@@ -575,7 +669,6 @@
             document.getElementById('id-preview').innerText = generateMemberID(name, dob);
         }
 
-        // Handle New Member Application
         function handleRegisterMember(e) {
             e.preventDefault();
             const name = document.getElementById('reg-name').value;
@@ -605,7 +698,7 @@
                 updateKPIs();
                 document.getElementById('member-form').reset();
                 document.getElementById('id-preview').innerText = "-------";
-                showModal("Application Submitted", `Join request sent to admin (${securityConfig.adminEmail}) for review. Once approved, login credentials will be emailed to you.`, "clock", "text-blue-600", "bg-blue-100");
+                showModal("Application Submitted", `Join request sent to admin (${securityConfig.adminEmail}) for review.`, "clock", "text-blue-600", "bg-blue-100");
             } else {
                 members.push({
                     ...newApplicant,
@@ -629,22 +722,13 @@
             };
             members.push(newMember);
 
-            // Grant login access to newly approved member
-            authorizedUsers.push({
-                email: applicant.email,
-                password: "user123",
-                name: applicant.name,
-                role: "member",
-                initials: applicant.name.split(' ').map(n=>n[0]).join('')
-            });
-
             renderPendingApplicants();
             renderMembers();
             renderMatrix();
             autofillMpesaForm();
             updateKPIs();
 
-            dispatchApprovalEmail(applicant);
+            showModal("Approval & Email Dispatched", `Member ${applicant.name} approved! Confirmation email sent to ${securityConfig.adminEmail} and ${applicant.email}.`, "mail", "text-emerald-600", "bg-emerald-100");
         }
 
         function rejectApplicant(index) {
@@ -652,10 +736,6 @@
             renderPendingApplicants();
             updateKPIs();
             showModal("Application Rejected", `Applicant ${applicant.name} (${applicant.id}) was declined entry.`, "x-circle", "text-red-600", "bg-red-100");
-        }
-
-        function dispatchApprovalEmail(member) {
-            showModal("Approval & Email Dispatched", `Member ${member.name} approved successfully! Confirmation email and login credentials (Password: user123) have been dispatched to ${securityConfig.adminEmail} and ${member.email}.`, "mail", "text-emerald-600", "bg-emerald-100");
         }
 
         function renderPendingApplicants() {
@@ -674,7 +754,7 @@
                     <td class="p-3 text-slate-500">${p.email}</td>
                     <td class="p-3 text-slate-500">${p.phone}</td>
                     <td class="p-3 text-right space-x-2">
-                        <button onclick="approveApplicant(${idx})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded text-[11px] font-medium">Approve & Send Credentials</button>
+                        <button onclick="approveApplicant(${idx})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded text-[11px] font-medium">Approve & Send Email</button>
                         <button onclick="rejectApplicant(${idx})" class="bg-red-100 hover:bg-red-200 text-red-700 px-2.5 py-1 rounded text-[11px] font-medium">Reject</button>
                     </td>
                 </tr>
