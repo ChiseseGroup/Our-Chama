@@ -22,7 +22,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen antialiased">
 
-    <!-- 1. AUTHENTICATION SCREEN (CREDENTIALS HIDDEN BY DEFAULT) -->
+    <!-- 1. AUTHENTICATION SCREEN -->
     <div id="auth-screen" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl max-w-md w-full p-5 sm:p-8 shadow-2xl space-y-4 my-auto max-h-[90vh] overflow-y-auto">
             <div class="text-center space-y-1">
@@ -41,9 +41,9 @@
                 </button>
                 <div id="demo-credentials-box" class="hidden mt-2 bg-blue-50 border border-blue-200 rounded-lg p-2.5 text-xs text-blue-900 space-y-0.5 text-left">
                     <p class="font-semibold">Demo Accounts:</p>
-                    <p><span class="font-medium">Admin:</span> ericmauti933@gmail.com / admin123</p>
-                    <p><span class="font-medium">Member:</span> john.mauti@example.com / user123</p>
-                    <p><span class="font-medium">Invite Code:</span> <code class="bg-blue-100 px-1 py-0.5 rounded font-mono font-bold">CWG-2026-SECURE</code></p>
+                    <p><span class="font-medium">Admin:</span> ericmauti933@gmail.com / admin123 (Phone: 0712345678)</p>
+                    <p><span class="font-medium">Member:</span> john.mauti@example.com / user123 (Phone: 0722334455)</p>
+                    <p><span class="font-medium">Global Master Invite Code:</span> <code class="bg-blue-100 px-1 py-0.5 rounded font-mono font-bold">CWG-2026-SECURE</code></p>
                 </div>
             </div>
 
@@ -54,7 +54,10 @@
                     <input type="email" id="login-email" required placeholder="Enter your email" class="mt-1 block w-full rounded-lg border-slate-300 border p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-700">Password</label>
+                    <div class="flex justify-between items-center">
+                        <label class="block text-xs font-medium text-slate-700">Password</label>
+                        <a href="#" onclick="toggleAuthView('forgot')" class="text-[11px] text-blue-600 font-medium hover:underline">Forgot Password?</a>
+                    </div>
                     <div class="relative mt-1">
                         <input type="password" id="login-password" required placeholder="••••••••" class="block w-full rounded-lg border-slate-300 border p-2.5 pr-10 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         <button type="button" onclick="togglePasswordVisibility('login-password', 'login-eye-icon')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600">
@@ -67,6 +70,25 @@
                 </button>
                 <div class="text-center pt-2 border-t border-slate-100">
                     <p class="text-xs text-slate-500">Don't have an account? <a href="#" onclick="toggleAuthView('signup')" class="text-blue-600 font-bold hover:underline">Sign Up Now</a></p>
+                </div>
+            </form>
+
+            <!-- FORGOT PASSWORD FORM -->
+            <form id="forgot-form" onsubmit="handleForgotPassword(event)" class="hidden space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Registered Email Address</label>
+                    <input type="email" id="forgot-email" required placeholder="Enter your email" oninput="handleForgotEmailInput()" class="mt-1 block w-full rounded-lg border-slate-300 border p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700">Verify Phone Number</label>
+                    <p id="phone-hint" class="text-[11px] text-slate-500 mt-0.5">Masked Phone: <span class="font-mono font-bold text-blue-600" id="masked-phone-display">----••••--</span></p>
+                    <input type="tel" id="forgot-phone" required placeholder="Enter 10-digit phone number" class="mt-1 block w-full rounded-lg border-slate-300 border p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-2.5 rounded-lg text-sm transition shadow-md shadow-amber-500/20">
+                    Reset & Generate Temporary Password
+                </button>
+                <div class="text-center pt-2 border-t border-slate-100">
+                    <p class="text-xs text-slate-500">Remembered your password? <a href="#" onclick="toggleAuthView('login')" class="text-blue-600 font-bold hover:underline">Back to Login</a></p>
                 </div>
             </form>
 
@@ -318,6 +340,7 @@
                                             <th class="p-3">Full Name</th>
                                             <th class="p-3">Email</th>
                                             <th class="p-3">Phone</th>
+                                            <th class="p-3">Unique Passcode</th>
                                             <th class="p-3">Pledge</th>
                                             <th class="p-3 text-right">Actions</th>
                                         </tr>
@@ -475,12 +498,12 @@
 
                     <div class="space-y-4 border-t border-b border-slate-100 py-4">
                         <div>
-                            <label class="block text-xs font-medium text-slate-700">Active Group Invite Passcode</label>
+                            <label class="block text-xs font-medium text-slate-700">Master Group Invite Passcode (Fallback)</label>
                             <div class="flex space-x-2 mt-1">
                                 <input type="text" id="setting-passcode" value="CWG-2026-SECURE" class="flex-1 rounded-md border-slate-300 border p-2 text-sm font-mono">
                                 <button onclick="updateInvitePasscode()" class="bg-slate-800 text-white text-xs px-4 py-2 rounded-md hover:bg-slate-900">Update Code</button>
                             </div>
-                            <span class="text-[11px] text-slate-400 mt-1 block">Share this code only with authorized invitees.</span>
+                            <span class="text-[11px] text-slate-400 mt-1 block">Every registered member automatically receives a unique invite passcode derived from their credentials.</span>
                         </div>
 
                         <div class="flex items-center justify-between pt-2">
@@ -503,7 +526,7 @@
 
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-800 space-y-1">
                         <p class="font-bold">Security Rule Active:</p>
-                        <p>Unauthenticated users cannot view the roster, matrix, or treasury channels without authenticating and passing the Invite Passcode gate.</p>
+                        <p>Unauthenticated users cannot view the roster, matrix, or treasury channels without authenticating and passing their Unique Invite Passcode gate.</p>
                     </div>
                 </div>
             </div>
@@ -531,9 +554,33 @@
     <script>
         let currentSession = null;
 
+        // Helper to generate a unique invite passcode for any member
+        function generateUniquePasscode(phone, name) {
+            const cleanPhone = (phone || "0000000000").replace(/\D/g, '');
+            const last4Phone = cleanPhone.slice(-4) || "9999";
+            const nameCode = (name || "CWG").split(' ')[0].toUpperCase();
+            return `CWG-${nameCode}-${last4Phone}`;
+        }
+
         const authorizedUsers = [
-            { email: "ericmauti933@gmail.com", password: "admin123", name: "Eric Mauti", role: "administrator", initials: "EM" },
-            { email: "john.mauti@example.com", password: "user123", name: "John Mauti", role: "member", initials: "JM" }
+            { 
+                email: "ericmauti933@gmail.com", 
+                password: "admin123", 
+                phone: "0712345678", 
+                name: "Eric Mauti", 
+                role: "administrator", 
+                initials: "EM",
+                inviteCode: generateUniquePasscode("0712345678", "Eric Mauti")
+            },
+            { 
+                email: "john.mauti@example.com", 
+                password: "user123", 
+                phone: "0722334455", 
+                name: "John Mauti", 
+                role: "member", 
+                initials: "JM",
+                inviteCode: generateUniquePasscode("0722334455", "John Mauti")
+            }
         ];
 
         let securityConfig = {
@@ -543,13 +590,13 @@
         };
 
         let members = [
-            { id: "Mauti18041995", name: "John Mauti", dob: "1995-04-18", email: "john.mauti@example.com", phone: "0712345678", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 5000 } },
-            { id: "Ochieng12101990", name: "Sarah Ochieng", dob: "1990-10-12", email: "sarah.ochieng@example.com", phone: "0723456789", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 0 } },
-            { id: "Kamau05011988", name: "David Kamau", dob: "1988-01-05", email: "david.kamau@example.com", phone: "0734567890", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 2500 } }
+            { id: "Mauti18041995", name: "John Mauti", dob: "1995-04-18", email: "john.mauti@example.com", phone: "0722334455", inviteCode: "CWG-JOHN-4455", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 5000 } },
+            { id: "Ochieng12101990", name: "Sarah Ochieng", dob: "1990-10-12", email: "sarah.ochieng@example.com", phone: "0723456789", inviteCode: "CWG-SARAH-6789", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 0 } },
+            { id: "Kamau05011988", name: "David Kamau", dob: "1988-01-05", email: "david.kamau@example.com", phone: "0734567890", inviteCode: "CWG-DAVID-7890", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 2500 } }
         ];
 
         let pendingApplicants = [
-            { id: "Wanjiru14021994", name: "Alice Wanjiru", dob: "1994-02-14", email: "alice.wanjiru@example.com", phone: "0745123456", pledge: 5000 }
+            { id: "Wanjiru14021994", name: "Alice Wanjiru", dob: "1994-02-14", email: "alice.wanjiru@example.com", phone: "0745123456", inviteCode: "CWG-ALICE-3456", pledge: 5000 }
         ];
 
         let bankTransactions = [
@@ -563,6 +610,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
+
+        function formatMaskedPhone(phoneStr) {
+            const clean = (phoneStr || "").replace(/\D/g, '');
+            if (clean.length < 6) return "----••••--";
+            const first4 = clean.slice(0, 4);
+            const last2 = clean.slice(-2);
+            const middleDots = "•".repeat(Math.max(0, clean.length - 6));
+            return `${first4}${middleDots}${last2}`;
+        }
 
         function toggleDemoCredentials() {
             const box = document.getElementById('demo-credentials-box');
@@ -592,24 +648,86 @@
         function toggleAuthView(view) {
             const loginForm = document.getElementById('login-form');
             const signupForm = document.getElementById('signup-form');
+            const forgotForm = document.getElementById('forgot-form');
             const subtitle = document.getElementById('auth-subtitle');
 
+            loginForm.classList.add('hidden');
+            signupForm.classList.add('hidden');
+            forgotForm.classList.add('hidden');
+
             if (view === 'signup') {
-                loginForm.classList.add('hidden');
                 signupForm.classList.remove('hidden');
                 subtitle.innerText = "Create a new member account & request join authorization";
+            } else if (view === 'forgot') {
+                forgotForm.classList.remove('hidden');
+                subtitle.innerText = "Verify your account details to reset your password";
+                handleForgotEmailInput();
             } else {
-                signupForm.classList.add('hidden');
                 loginForm.classList.remove('hidden');
                 subtitle.innerText = "Sign in to access your financial portal";
             }
             lucide.createIcons();
         }
 
+        function handleForgotEmailInput() {
+            const emailInput = document.getElementById('forgot-email').value.trim().toLowerCase();
+            const display = document.getElementById('masked-phone-display');
+            const user = authorizedUsers.find(u => u.email.toLowerCase() === emailInput);
+            if (user && user.phone) {
+                display.innerText = formatMaskedPhone(user.phone);
+            } else {
+                display.innerText = "----••••--";
+            }
+        }
+
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('forgot-email').value.trim().toLowerCase();
+            const phoneInput = document.getElementById('forgot-phone').value.trim().replace(/\D/g, '');
+
+            const user = authorizedUsers.find(u => u.email.toLowerCase() === emailInput);
+
+            if (!user) {
+                showModal("Account Not Found", "No account associated with this email address was found.", "alert-circle", "text-red-600", "bg-red-100");
+                return;
+            }
+
+            const cleanUserPhone = (user.phone || "").replace(/\D/g, '');
+            if (cleanUserPhone !== phoneInput) {
+                showModal("Verification Failed", `The phone number provided does not match our records for ${user.email}. Matching expected: ${formatMaskedPhone(user.phone)}.`, "alert-circle", "text-red-600", "bg-red-100");
+                return;
+            }
+
+            // Generate instant temporary password
+            const tempPassword = "Tmp" + Math.floor(100000 + Math.random() * 900000);
+            user.password = tempPassword;
+
+            document.getElementById('forgot-form').reset();
+            document.getElementById('masked-phone-display').innerText = "----••••--";
+            toggleAuthView('login');
+
+            showModal(
+                "Temporary Password Sent", 
+                `Verification successful! A temporary password has been dispatched to ${user.email}.\n\nYour Temporary Password is: ${tempPassword}\n\nPlease log in using this temporary password immediately.`, 
+                "mail", 
+                "text-emerald-600", 
+                "bg-emerald-100"
+            );
+        }
+
         function previewSignUpID() {
             const name = document.getElementById('signup-name').value;
             const dob = document.getElementById('signup-dob').value;
             document.getElementById('signup-id-preview').innerText = generateMemberID(name, dob);
+        }
+
+        function isInviteCodeValid(code) {
+            if (!code) return false;
+            const cleanCode = code.trim().toUpperCase();
+            if (cleanCode === securityConfig.invitePasscode.toUpperCase()) return true;
+            if (authorizedUsers.some(u => u.inviteCode && u.inviteCode.toUpperCase() === cleanCode)) return true;
+            if (members.some(m => m.inviteCode && m.inviteCode.toUpperCase() === cleanCode)) return true;
+            return false;
         }
 
         function handleSignUp(e) {
@@ -621,8 +739,8 @@
             const password = document.getElementById('signup-password').value.trim();
             const passcode = document.getElementById('signup-passcode').value.trim();
 
-            if (passcode !== securityConfig.invitePasscode) {
-                showModal("Passcode Error", "Invalid Group Invite Passcode. Contact group admin for access code.", "alert-circle", "text-red-600", "bg-red-100");
+            if (!isInviteCodeValid(passcode)) {
+                showModal("Passcode Error", "Invalid Group Invite Passcode. Contact group admin or a member for your valid passcode.", "alert-circle", "text-red-600", "bg-red-100");
                 return;
             }
 
@@ -632,6 +750,7 @@
             }
 
             const generatedId = generateMemberID(name, dob);
+            const userInviteCode = generateUniquePasscode(phone, name);
 
             pendingApplicants.push({
                 id: generatedId,
@@ -639,22 +758,25 @@
                 dob: dob,
                 email: email,
                 phone: phone,
+                inviteCode: userInviteCode,
                 pledge: 5000
             });
 
             authorizedUsers.push({
                 email: email,
                 password: password,
+                phone: phone,
                 name: name,
                 role: "member",
-                initials: name.split(' ').map(n => n[0]).join('')
+                initials: name.split(' ').map(n => n[0]).join(''),
+                inviteCode: userInviteCode
             });
 
             document.getElementById('signup-form').reset();
             document.getElementById('signup-id-preview').innerText = "-------";
             toggleAuthView('login');
 
-            showModal("Sign-Up Complete!", `Account created for ${name} (${generatedId}). Your application is queued for Admin approval. You may now log in with your credentials.`, "check-circle-2", "text-emerald-600", "bg-emerald-100");
+            showModal("Sign-Up Complete!", `Account created for ${name} (${generatedId}).\nYour Unique Passcode is: ${userInviteCode}\n\nYour application is queued for Admin approval. You may now log in.`, "check-circle-2", "text-emerald-600", "bg-emerald-100");
         }
 
         function handleLogin(e) {
@@ -673,7 +795,6 @@
                 document.getElementById('user-display-role').innerText = user.role;
                 document.getElementById('user-avatar-initials').innerText = user.initials;
 
-                // Adjust UI tab availability based on user role
                 const securityTabBtn = document.getElementById('tab-security');
                 if (user.role === 'administrator') {
                     securityTabBtn.classList.remove('hidden');
@@ -703,7 +824,6 @@
         }
 
         function switchTab(tabName) {
-            // Guard Rule: Only Administrators can view Security Settings
             if (tabName === 'security' && (!currentSession || currentSession.role !== 'administrator')) {
                 showModal("Access Denied", "Security Settings are restricted strictly to Administrators.", "shield-alert", "text-red-600", "bg-red-100");
                 return;
@@ -748,19 +868,20 @@
             const pledge = parseFloat(document.getElementById('reg-pledge').value);
             const inputCode = document.getElementById('reg-invite-code').value;
 
-            if (inputCode !== securityConfig.invitePasscode) {
+            if (!isInviteCodeValid(inputCode)) {
                 showModal("Access Denied", "Invalid Group Invite Passcode. You cannot join without authorization.", "alert-circle", "text-red-600", "bg-red-100");
                 return;
             }
 
             const customId = generateMemberID(name, dob);
+            const userInviteCode = generateUniquePasscode(phone, name);
 
             if (members.some(m => m.id === customId) || pendingApplicants.some(p => p.id === customId)) {
                 showModal("Duplicate ID", `Member ID ${customId} already exists in the system!`, "alert-circle", "text-amber-600", "bg-amber-100");
                 return;
             }
 
-            const newApplicant = { id: customId, name, dob, email, phone, pledge };
+            const newApplicant = { id: customId, name, dob, email, phone, inviteCode: userInviteCode, pledge };
 
             if (securityConfig.requireApproval) {
                 pendingApplicants.push(newApplicant);
@@ -768,7 +889,7 @@
                 updateKPIs();
                 document.getElementById('member-form').reset();
                 document.getElementById('id-preview').innerText = "-------";
-                showModal("Application Submitted", `Join request sent to admin (${securityConfig.adminEmail}) for review.`, "clock", "text-blue-600", "bg-blue-100");
+                showModal("Application Submitted", `Join request sent to admin (${securityConfig.adminEmail}) for review.\nAssigned Unique Passcode: ${userInviteCode}`, "clock", "text-blue-600", "bg-blue-100");
             } else {
                 members.push({
                     ...newApplicant,
@@ -780,7 +901,7 @@
                 updateKPIs();
                 document.getElementById('member-form').reset();
                 document.getElementById('id-preview').innerText = "-------";
-                showModal("Successfully Joined", `Welcome to Chinese Welfare Group! Your ID is ${customId}.`, "check-circle-2", "text-emerald-600", "bg-emerald-100");
+                showModal("Successfully Joined", `Welcome to Chinese Welfare Group! Your ID is ${customId}.\nYour Unique Passcode: ${userInviteCode}`, "check-circle-2", "text-emerald-600", "bg-emerald-100");
             }
         }
 
@@ -798,7 +919,7 @@
             autofillMpesaForm();
             updateKPIs();
 
-            showModal("Approval & Email Dispatched", `Member ${applicant.name} approved! Confirmation email sent to ${securityConfig.adminEmail} and ${applicant.email}.`, "mail", "text-emerald-600", "bg-emerald-100");
+            showModal("Approval & Email Dispatched", `Member ${applicant.name} approved! Unique Passcode: ${applicant.inviteCode}. Confirmation email sent to ${securityConfig.adminEmail} and ${applicant.email}.`, "mail", "text-emerald-600", "bg-emerald-100");
         }
 
         function rejectApplicant(index) {
@@ -840,6 +961,7 @@
                     <td class="p-3 font-medium text-slate-900">${m.name}</td>
                     <td class="p-3 text-slate-500">${m.email}</td>
                     <td class="p-3 text-slate-500">${m.phone}</td>
+                    <td class="p-3 font-mono font-semibold text-emerald-700">${m.inviteCode || generateUniquePasscode(m.phone, m.name)}</td>
                     <td class="p-3 font-semibold text-slate-700">KES ${m.pledge.toLocaleString()}</td>
                     <td class="p-3 text-right">
                         <button onclick="deleteMember('${m.id}')" class="text-red-500 hover:text-red-700"><i data-lucide="trash-2" class="w-4 h-4 inline"></i></button>
@@ -859,6 +981,7 @@
                     <td class="p-3 font-medium text-slate-900">${m.name}</td>
                     <td class="p-3 text-slate-500">${m.email}</td>
                     <td class="p-3 text-slate-500">${m.phone}</td>
+                    <td class="p-3 font-mono font-semibold text-emerald-700">${m.inviteCode || generateUniquePasscode(m.phone, m.name)}</td>
                     <td class="p-3 font-semibold text-slate-700">KES ${m.pledge.toLocaleString()}</td>
                     <td class="p-3 text-right">
                         <button onclick="deleteMember('${m.id}')" class="text-red-500 hover:text-red-700"><i data-lucide="trash-2" class="w-4 h-4 inline"></i></button>
@@ -1047,7 +1170,7 @@
             const val = document.getElementById('setting-passcode').value;
             if (!val) return alert("Passcode cannot be empty");
             securityConfig.invitePasscode = val;
-            showModal("Passcode Updated", `Group invite passcode successfully changed to: ${val}`, "shield-alert", "text-emerald-600", "bg-emerald-100");
+            showModal("Passcode Updated", `Master group invite passcode successfully changed to: ${val}`, "shield-alert", "text-emerald-600", "bg-emerald-100");
         }
 
         function toggleApprovalSetting(isChecked) {
