@@ -187,6 +187,7 @@
                     <i data-lucide="building-2" class="w-4 h-4"></i>
                     <span>Bank Statement Sync</span>
                 </button>
+                <!-- ADMIN-ONLY TAB: Hidden for regular members -->
                 <button onclick="switchTab('security')" id="tab-security" class="text-slate-500 hover:text-slate-700 pb-3 text-xs sm:text-sm flex items-center space-x-1.5 whitespace-nowrap">
                     <i data-lucide="lock" class="w-4 h-4"></i>
                     <span>Security Settings</span>
@@ -461,7 +462,7 @@
                 </div>
             </div>
 
-            <!-- TAB 6: SECURITY & GATE SETTINGS -->
+            <!-- TAB 6: SECURITY & GATE SETTINGS (ADMIN ONLY) -->
             <div id="view-security" class="hidden space-y-6">
                 <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-4 sm:p-6 max-w-2xl space-y-6">
                     <div>
@@ -672,6 +673,15 @@
                 document.getElementById('user-display-role').innerText = user.role;
                 document.getElementById('user-avatar-initials').innerText = user.initials;
 
+                // Adjust UI tab availability based on user role
+                const securityTabBtn = document.getElementById('tab-security');
+                if (user.role === 'administrator') {
+                    securityTabBtn.classList.remove('hidden');
+                } else {
+                    securityTabBtn.classList.add('hidden');
+                }
+
+                switchTab('dashboard');
                 renderMembers();
                 renderPendingApplicants();
                 renderMatrix();
@@ -693,6 +703,12 @@
         }
 
         function switchTab(tabName) {
+            // Guard Rule: Only Administrators can view Security Settings
+            if (tabName === 'security' && (!currentSession || currentSession.role !== 'administrator')) {
+                showModal("Access Denied", "Security Settings are restricted strictly to Administrators.", "shield-alert", "text-red-600", "bg-red-100");
+                return;
+            }
+
             const tabs = ['dashboard', 'members', 'matrix', 'mpesa', 'reconciliation', 'security'];
             tabs.forEach(t => {
                 document.getElementById(`view-${t}`).classList.add('hidden');
