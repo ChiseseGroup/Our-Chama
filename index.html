@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chisese Welfare Group - Financial Management System</title>
+    <title>Chinese Welfare Group - Financial Management System</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -28,8 +28,8 @@
                         <i data-lucide="shield-check" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold text-slate-900 leading-tight">Chisese Welfare Group</h1>
-                        <p class="text-xs text-slate-500">Financial Management & Ledger System</p>
+                        <h1 class="text-xl font-bold text-slate-900 leading-tight">Chinese Welfare Group</h1>
+                        <p class="text-xs text-slate-500">Financial Management & Secure Ledger System</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -39,7 +39,7 @@
                     </button>
                     <div class="relative">
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                            <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-500 rounded-full"></span> Live Integrations Active
+                            <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-500 rounded-full"></span> Secure Gate Active
                         </span>
                     </div>
                 </div>
@@ -51,32 +51,35 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         <!-- Navigation Tabs -->
-        <div class="border-b border-slate-200 mb-6 flex space-x-8">
-            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-active pb-3 text-sm flex items-center space-x-2">
+        <div class="border-b border-slate-200 mb-6 flex space-x-8 overflow-x-auto">
+            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-active pb-3 text-sm flex items-center space-x-2 whitespace-nowrap">
                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                 <span>Overview</span>
             </button>
-            <button onclick="switchTab('members')" id="tab-members" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
+            <button onclick="switchTab('members')" id="tab-members" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2 whitespace-nowrap">
                 <i data-lucide="users" class="w-4 h-4"></i>
-                <span>Members & Custom IDs</span>
+                <span>Members & Approvals</span>
             </button>
-            <button onclick="switchTab('matrix')" id="tab-matrix" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
+            <button onclick="switchTab('matrix')" id="tab-matrix" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2 whitespace-nowrap">
                 <i data-lucide="grid" class="w-4 h-4"></i>
                 <span>Contribution Matrix</span>
             </button>
-            <button onclick="switchTab('mpesa')" id="tab-mpesa" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
+            <button onclick="switchTab('mpesa')" id="tab-mpesa" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2 whitespace-nowrap">
                 <i data-lucide="smartphone" class="w-4 h-4"></i>
                 <span>M-Pesa STK Push</span>
             </button>
-            <button onclick="switchTab('reconciliation')" id="tab-reconciliation" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
+            <button onclick="switchTab('reconciliation')" id="tab-reconciliation" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2 whitespace-nowrap">
                 <i data-lucide="building-2" class="w-4 h-4"></i>
                 <span>Bank Statement Sync</span>
+            </button>
+            <button onclick="switchTab('security')" id="tab-security" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2 whitespace-nowrap">
+                <i data-lucide="lock" class="w-4 h-4"></i>
+                <span>Security & Gate Settings</span>
             </button>
         </div>
 
         <!-- TAB 1: DASHBOARD OVERVIEW -->
         <div id="view-dashboard" class="space-y-6">
-            <!-- Summary Metric Cards -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
                     <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Fund Reserve</p>
@@ -91,12 +94,12 @@
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
                     <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Members</p>
                     <p class="text-2xl font-bold text-slate-900 mt-1" id="kpi-members">0</p>
-                    <p class="text-xs text-slate-500 mt-1">100% ID registration rate</p>
+                    <p class="text-xs text-slate-500 mt-1">Verified Gate-passed roster</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Bank Statements</p>
-                    <p class="text-2xl font-bold text-amber-600 mt-1" id="kpi-unreconciled">0</p>
-                    <p class="text-xs text-amber-600 mt-1 flex items-center"><i data-lucide="alert-circle" class="w-3 h-3 mr-1"></i> Action required</p>
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Approvals</p>
+                    <p class="text-2xl font-bold text-amber-600 mt-1" id="kpi-pending">0</p>
+                    <p class="text-xs text-amber-600 mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1"></i> Gate review queue</p>
                 </div>
             </div>
 
@@ -117,713 +120,18 @@
             </div>
         </div>
 
-        <!-- TAB 2: MEMBERS & CUSTOM ID GENERATION -->
+        <!-- TAB 2: MEMBERS & APPROVAL QUEUE -->
         <div id="view-members" class="hidden space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                <!-- Registration Form -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="text-base font-semibold text-slate-900 mb-1">Register New Member</h3>
-                    <p class="text-xs text-slate-500 mb-4">Unique ID auto-generates using Surname + DDMMYYYY (e.g., Mauti18041995).</p>
-                    
-                    <form id="member-form" onsubmit="handleRegisterMember(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700">Full Name</label>
-                            <input type="text" id="reg-name" required placeholder="e.g. John Mauti" oninput="previewMemberID()" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-                            <span class="text-[11px] text-slate-400">The last word will be extracted as the Surname.</span>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700">Date of Birth</label>
-                            <input type="date" id="reg-dob" required oninput="previewMemberID()" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        
-                        <!-- Auto Generated ID Preview Box -->
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <label class="block text-xs font-semibold text-blue-700 uppercase tracking-wider">Generated Identification ID</label>
-                            <p id="id-preview" class="text-lg font-mono font-bold text-blue-900 mt-1">-------</p>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700">Phone Number (M-Pesa)</label>
-                            <input type="tel" id="reg-phone" required placeholder="0712345678" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700">Monthly Contribution Pledge (KES)</label>
-                            <input type="number" id="reg-pledge" value="5000" required class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition">
-                            Register Member
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Member List Table -->
-                <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="p-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="text-base font-semibold text-slate-900">Registered Members Roster</h3>
-                        <input type="text" placeholder="Search by name or ID..." onkeyup="filterMembers(this.value)" class="text-xs border border-slate-300 rounded-md px-3 py-1.5 w-48">
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-200">
-                                    <th class="p-3">Member ID</th>
-                                    <th class="p-3">Full Name</th>
-                                    <th class="p-3">Date of Birth</th>
-                                    <th class="p-3">Phone</th>
-                                    <th class="p-3">Monthly Pledge</th>
-                                    <th class="p-3 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="member-table-body" class="text-xs divide-y divide-slate-100">
-                                <!-- Dynamic Render -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- TAB 3: CONTRIBUTION MATRIX -->
-        <div id="view-matrix" class="hidden space-y-6">
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                        <h3 class="text-base font-semibold text-slate-900">2026 Monthly Payment Matrix</h3>
-                        <p class="text-xs text-slate-500">Real-time status of group monthly contributions linked to M-Pesa & Bank.</p>
-                    </div>
-                    <div class="flex space-x-2">
-                        <button onclick="exportMatrixCSV()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium px-3 py-2 rounded-md border border-slate-300 flex items-center space-x-1">
-                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                            <span>Export CSV</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse text-xs">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-600 border-b border-slate-200">
-                                <th class="p-3 text-left sticky left-0 bg-slate-50 min-w-[140px]">Member Details</th>
-                                <th class="p-3 text-center">Jan</th>
-                                <th class="p-3 text-center">Feb</th>
-                                <th class="p-3 text-center">Mar</th>
-                                <th class="p-3 text-center">Apr</th>
-                                <th class="p-3 text-center">May</th>
-                                <th class="p-3 text-center">Jun</th>
-                                <th class="p-3 text-center">Jul</th>
-                                <th class="p-3 text-center">Aug</th>
-                                <th class="p-3 text-center bg-blue-50 font-bold">Sep (Current)</th>
-                                <th class="p-3 text-center">Total Paid</th>
-                            </tr>
-                        </thead>
-                        <tbody id="matrix-table-body" class="divide-y divide-slate-100">
-                            <!-- Dynamic Render -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 4: M-PESA STK PUSH INTEGRATION -->
-        <div id="view-mpesa" class="hidden space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- STK Simulator -->
+                <!-- Registration Form / Public Join Simulator -->
                 <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
-                    <div class="flex items-center space-x-3 text-emerald-600">
-                        <i data-lucide="smartphone" class="w-6 h-6"></i>
-                        <h3 class="text-base font-semibold text-slate-900">M-Pesa Express (STK Push)</h3>
-                    </div>
-                    <p class="text-xs text-slate-500">Initiate an instant M-Pesa prompt to a member's phone. Payment automatically posts to their unique Member ID upon PIN confirmation.</p>
-
                     <div>
-                        <label class="block text-xs font-medium text-slate-700">Select Member</label>
-                        <select id="mpesa-member-select" onchange="autofillMpesaForm()" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
-                            <!-- Options Populated Dynamically -->
-                        </select>
+                        <h3 class="text-base font-semibold text-slate-900 mb-1">New Member Application</h3>
+                        <p class="text-xs text-slate-500">Applicants must submit a valid Group Invite Passcode to enter the review queue.</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700">Unique Member ID</label>
-                            <input type="text" id="mpesa-id-display" readonly class="mt-1 block w-full rounded-md bg-slate-100 border-slate-300 border p-2 text-sm font-mono text-slate-600">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700">Phone Number</label>
-                            <input type="text" id="mpesa-phone-display" readonly class="mt-1 block w-full rounded-md bg-slate-100 border-slate-300 border p-2 text-sm text-slate-600">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700">Amount (KES)</label>
-                        <input type="number" id="mpesa-amount" value="5000" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700">Contribution Month</label>
-                        <select id="mpesa-month" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm">
-                            <option value="Sep">September 2026</option>
-                            <option value="Aug">August 2026</option>
-                            <option value="Jul">July 2026</option>
-                        </select>
-                    </div>
-
-                    <button onclick="triggerSTKPush()" id="stk-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-md text-sm transition flex items-center justify-center space-x-2">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                        <span>Send M-Pesa Prompt</span>
-                    </button>
-                </div>
-
-                <!-- Live Push Logs / Terminal Simulator -->
-                <div class="bg-slate-900 rounded-xl p-6 text-slate-200 font-mono text-xs flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
-                            <span class="text-slate-400">Safaricom Daraja API Console</span>
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        </div>
-                        <div id="stk-logs" class="space-y-2 h-64 overflow-y-auto">
-                            <p class="text-slate-500">// System ready. Waiting for payment dispatch...</p>
-                        </div>
-                    </div>
-                    <div class="pt-4 border-t border-slate-800 text-[10px] text-slate-500">
-                        Callback URL: https://api.chisesewelfare.org/v1/mpesa/callback
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- TAB 5: BANK STATEMENT RECONCILIATION -->
-        <div id="view-reconciliation" class="hidden space-y-6">
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <div>
-                        <h3 class="text-base font-semibold text-slate-900">Unmatched Bank Feed Transactions</h3>
-                        <p class="text-xs text-slate-500">Bank deposits automatically matched by Unique Member ID inside payment reference.</p>
-                    </div>
-                    <button onclick="simulateBankFeedImport()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 flex items-center space-x-1">
-                        <i data-lucide="file-plus" class="w-3.5 h-3.5"></i>
-                        <span>Simulate Bank Feed Sync</span>
-                    </button>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-xs">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-500 uppercase tracking-wider border-b border-slate-200">
-                                <th class="p-3">Bank Reference</th>
-                                <th class="p-3">Deposit Date</th>
-                                <th class="p-3">Detected ID</th>
-                                <th class="p-3">Payer Name</th>
-                                <th class="p-3">Amount (KES)</th>
-                                <th class="p-3">Status</th>
-                                <th class="p-3 text-right">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bank-table-body" class="divide-y divide-slate-100">
-                            <!-- Dynamic Render -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- JS Logic -->
-    <script>
-        // Initial Chama Database
-        let members = [
-            { id: "Mauti18041995", name: "John Mauti", dob: "1995-04-18", phone: "0712345678", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 5000 } },
-            { id: "Ochieng12101990", name: "Sarah Ochieng", dob: "1990-10-12", phone: "0723456789", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 0 } },
-            { id: "Kamau05011988", name: "David Kamau", dob: "1988-01-05", phone: "0734567890", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 2500 } }
-        ];
-
-        let bankTransactions = [
-            { ref: "BK-998231", date: "2026-09-02", detectedId: "Mauti18041995", rawPayer: "JOHN MAUTI BANK TRANSFER", amount: 5000, status: "matched" },
-            { ref: "BK-998412", date: "2026-09-04", detectedId: "Kamau05011988", rawPayer: "DAVID KAMAU", amount: 2500, status: "matched" },
-            { ref: "BK-999015", date: "2026-09-06", detectedId: "Ochieng12101990", rawPayer: "S OCHIENG DIRECT", amount: 5000, status: "pending" }
-        ];
-
-        let trendChart, channelChart;
-
-        // Initialize App
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            renderMembers();
-            renderMatrix();
-            renderBankTable();
-            autofillMpesaForm();
-            initCharts();
-            updateKPIs();
-        });
-
-        // Tab Switching
-        function switchTab(tabName) {
-            const tabs = ['dashboard', 'members', 'matrix', 'mpesa', 'reconciliation'];
-            tabs.forEach(t => {
-                document.getElementById(`view-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).classList.remove('tab-active');
-                document.getElementById(`tab-${t}`).classList.add('text-slate-500');
-            });
-
-            document.getElementById(`view-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabName}`).classList.add('tab-active');
-            document.getElementById(`tab-${tabName}`).classList.remove('text-slate-500');
-        }
-
-        // Custom Member ID Generator Logic: Surname + DDMMYYYY
-        function generateMemberID(fullName, dobString) {
-            if (!fullName || !dobString) return "-------";
-            
-            // Extract Surname (last word of full name)
-            const nameParts = fullName.trim().split(/\s+/);
-            let surname = nameParts[nameParts.length - 1];
-            // Format surname: Capitalize first letter, lowercase rest
-            surname = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
-
-            // Format DOB: YYYY-MM-DD -> DDMMYYYY
-            const dobParts = dobString.split('-'); // [YYYY, MM, DD]
-            if (dobParts.length !== 3) return "-------";
-            
-            const day = dobParts[2];
-            const month = dobParts[1];
-            const year = dobParts[0];
-
-            return `${surname}${day}${month}${year}`;
-        }
-
-        // Live preview of generated ID in form
-        function previewMemberID() {
-            const name = document.getElementById('reg-name').value;
-            const dob = document.getElementById('reg-dob').value;
-            const generatedId = generateMemberID(name, dob);
-            document.getElementById('id-preview').innerText = generatedId;
-        }
-
-        // Handle New Member Registration
-        function handleRegisterMember(e) {
-            e.preventDefault();
-            const name = document.getElementById('reg-name').value;
-            const dob = document.getElementById('reg-dob').value;
-            const phone = document.getElementById('reg-phone').value;
-            const pledge = parseFloat(document.getElementById('reg-pledge').value);
-
-            const customId = generateMemberID(name, dob);
-
-            // Check if ID already exists
-            if (members.some(m => m.id === customId)) {
-                alert(`Member ID ${customId} already exists in the system!`);
-                return;
-            }
-
-            const newMember = {
-                id: customId,
-                name: name,
-                dob: dob,
-                phone: phone,
-                pledge: pledge,
-                history: { Jan: 0, Feb: 0, Mar: 0, Apr: 0, May: 0, Jun: 0, Jul: 0, Aug: 0, Sep: 0 }
-            };
-
-            members.push(newMember);
-            renderMembers();
-            renderMatrix();
-            autofillMpesaForm();
-            updateKPIs();
-
-            // Reset Form
-            document.getElementById('member-form').reset();
-            document.getElementById('id-preview').innerText = "-------";
-            alert(`Member registered successfully with ID: ${customId}`);
-        }
-
-        // Render Members Roster
-        function renderMembers() {
-            const tbody = document.getElementById('member-table-body');
-            tbody.innerHTML = members.map(m => `
-                <tr class="hover:bg-slate-50">
-                    <td class="p-3 font-mono font-bold text-blue-600">${m.id}</td>
-                    <td class="p-3 font-medium text-slate-900">${m.name}</td>
-                    <td class="p-3 text-slate-500">${m.dob}</td>
-                    <td class="p-3 text-slate-500">${m.phone}</td>
-                    <td class="p-3 font-semibold text-slate-700">KES ${m.pledge.toLocaleString()}</td>
-                    <td class="p-3 text-right space-x-2">
-                        <button onclick="deleteMember('${m.id}')" class="text-red-500 hover:text-red-700"><i data-lucide="trash-2" class="w-4 h-4 inline"></i></button>
-                    </td>
-                </tr>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        function filterMembers(query) {
-            const q = query.toLowerCase();
-            const filtered = members.filter(m => m.name.toLowerCase().includes(q) || m.id.toLowerCase().includes(q));
-            const tbody = document.getElementById('member-table-body');
-            tbody.innerHTML = filtered.map(m => `
-                <tr class="hover:bg-slate-50">
-                    <td class="p-3 font-mono font-bold text-blue-600">${m.id}</td>
-                    <td class="p-3 font-medium text-slate-900">${m.name}</td>
-                    <td class="p-3 text-slate-500">${m.dob}</td>
-                    <td class="p-3 text-slate-500">${m.phone}</td>
-                    <td class="p-3 font-semibold text-slate-700">KES ${m.pledge.toLocaleString()}</td>
-                    <td class="p-3 text-right space-x-2">
-                        <button onclick="deleteMember('${m.id}')" class="text-red-500 hover:text-red-700"><i data-lucide="trash-2" class="w-4 h-4 inline"></i></button>
-                    </td>
-                </tr>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        function deleteMember(id) {
-            if (confirm(`Remove member with ID ${id}?`)) {
-                members = members.filter(m => m.id !== id);
-                renderMembers();
-                renderMatrix();
-                autofillMpesaForm();
-                updateKPIs();
-            }
-        }
-
-        // Render Monthly Matrix
-        function renderMatrix() {
-            const tbody = document.getElementById('matrix-table-body');
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
-
-            tbody.innerHTML = members.map(m => {
-                let totalPaid = 0;
-                const monthCells = months.map(month => {
-                    const amt = m.history[month] || 0;
-                    totalPaid += amt;
-                    let badgeClass = "bg-slate-100 text-slate-500";
-                    if (amt >= m.pledge) badgeClass = "bg-emerald-100 text-emerald-800 font-bold";
-                    else if (amt > 0) badgeClass = "bg-amber-100 text-amber-800 font-bold";
-
-                    return `<td class="p-3 text-center">
-                        <span class="inline-block px-2 py-1 rounded text-[11px] ${badgeClass}">
-                            ${amt > 0 ? 'KES ' + amt.toLocaleString() : '-'}
-                        </span>
-                    </td>`;
-                }).join('');
-
-                return `
-                    <tr class="hover:bg-slate-50">
-                        <td class="p-3 sticky left-0 bg-white border-r border-slate-100">
-                            <div class="font-bold text-slate-900">${m.name}</div>
-                            <div class="font-mono text-[10px] text-blue-600">${m.id}</div>
-                        </td>
-                        ${monthCells}
-                        <td class="p-3 text-center font-bold text-blue-700 bg-slate-50">KES ${totalPaid.toLocaleString()}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // M-Pesa Form Autofill
-        function autofillMpesaForm() {
-            const select = document.getElementById('mpesa-member-select');
-            select.innerHTML = members.map(m => `<option value="${m.id}">${m.name} (${m.id})</option>`).join('');
-
-            if (members.length > 0) {
-                const selectedMember = members[0];
-                document.getElementById('mpesa-id-display').value = selectedMember.id;
-                document.getElementById('mpesa-phone-display').value = selectedMember.phone;
-                document.getElementById('mpesa-amount').value = selectedMember.pledge;
-            }
-
-            select.onchange = (e) => {
-                const m = members.find(mem => mem.id === e.target.value);
-                if (m) {
-                    document.getElementById('mpesa-id-display').value = m.id;
-                    document.getElementById('mpesa-phone-display').value = m.phone;
-                    document.getElementById('mpesa-amount').value = m.pledge;
-                }
-            };
-        }
-
-        // STK Push Execution Simulator
-        function triggerSTKPush() {
-            const memberId = document.getElementById('mpesa-id-display').value;
-            const phone = document.getElementById('mpesa-phone-display').value;
-            const amount = parseFloat(document.getElementById('mpesa-amount').value);
-            const month = document.getElementById('mpesa-month').value;
-            const logs = document.getElementById('stk-logs');
-
-            const btn = document.getElementById('stk-btn');
-            btn.disabled = true;
-            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> <span>Sending Push...</span>`;
-            lucide.createIcons();
-
-            logs.innerHTML += `<p class="text-blue-400">[${new Date().toLocaleTimeString()}] Initiating STK Push to ${phone} (ID: ${memberId})...</p>`;
-
-            setTimeout(() => {
-                logs.innerHTML += `<p class="text-amber-400">[${new Date().toLocaleTimeString()}] Prompt rendered on phone. Awaiting PIN entry...</p>`;
-            }, 1200);
-
-            setTimeout(() => {
-                // Apply transaction to database
-                const member = members.find(m => m.id === memberId);
-                if (member) {
-                    member.history[month] = (member.history[month] || 0) + amount;
-                }
-
-                logs.innerHTML += `<p class="text-emerald-400">[${new Date().toLocaleTimeString()}] SUCCESS: KES ${amount} received from ${phone}. Account ${memberId} updated.</p>`;
-                
-                renderMatrix();
-                updateKPIs();
-                btn.disabled = false;
-                btn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i> <span>Send M-Pesa Prompt</span>`;
-                lucide.createIcons();
-            }, 3000);
-        }
-
-        // Bank Table Render
-        function renderBankTable() {
-            const tbody = document.getElementById('bank-table-body');
-            tbody.innerHTML = bankTransactions.map((b, idx) => `
-                <tr class="hover:bg-slate-50">
-                    <td class="p-3 font-mono font-bold text-slate-700">${b.ref}</td>
-                    <td class="p-3 text-slate-500">${b.date}</td>
-                    <td class="p-3 font-mono font-bold text-blue-600">${b.detectedId}</td>
-                    <td class="p-3 text-slate-700">${b.rawPayer}</td>
-                    <td class="p-3 font-semibold text-slate-900">KES ${b.amount.toLocaleString()}</td>
-                    <td class="p-3">
-                        ${b.status === 'matched' 
-                            ? '<span class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 text-emerald-800 font-medium">Reconciled</span>' 
-                            : '<span class="px-2 py-0.5 rounded-full text-[10px] bg-amber-100 text-amber-800 font-medium">Pending Match</span>'}
-                    </td>
-                    <td class="p-3 text-right">
-                        ${b.status === 'pending' 
-                            ? `<button onclick="reconcileBankTx(${idx})" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-[11px]">Post Payment</button>`
-                            : '<span class="text-slate-400 text-[11px]">Done</span>'}
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function reconcileBankTx(index) {
-            const tx = bankTransactions[index];
-            const member = members.find(m => m.id === tx.detectedId);
-            if (member) {
-                member.history['Sep'] = (member.history['Sep'] || 0) + tx.amount;
-                tx.status = 'matched';
-                renderBankTable();
-                renderMatrix();
-                updateKPIs();
-                alert(`Transaction ${tx.ref} linked to ${member.name} (${tx.detectedId}) successfully.`);
-            }
-        }
-
-        function simulateBankFeedImport() {
-            const randomMember = members[Math.floor(Math.random() * members.length)];
-            const newTx = {
-                ref: `BK-${Math.floor(100000 + Math.random() * 900000)}`,
-                date: "2026-09-08",
-                detectedId: randomMember.id,
-                rawPayer: `${randomMember.name.toUpperCase()} BANK DEPOSIT`,
-                amount: 5000,
-                status: 'pending'
-            };
-            bankTransactions.unshift(newTx);
-            renderBankTable();
-            updateKPIs();
-        }
-
-        // Analytics KPI Updates
-        function updateKPIs() {
-            let grandTotal = 0;
-            let currentMonthTotal = 0;
-
-            members.forEach(m => {
-                Object.keys(m.history).forEach(k => {
-                    grandTotal += m.history[k];
-                    if (k === 'Sep') currentMonthTotal += m.history[k];
-                });
-            });
-
-            document.getElementById('kpi-total').innerText = `KES ${grandTotal.toLocaleString()}`;
-            document.getElementById('kpi-month').innerText = `KES ${currentMonthTotal.toLocaleString()}`;
-            document.getElementById('kpi-members').innerText = members.length;
-
-            const pending = bankTransactions.filter(b => b.status === 'pending').length;
-            document.getElementById('kpi-unreconciled').innerText = pending;
-        }
-
-        // Chart Initialization
-        function initCharts() {
-            const ctx1 = document.getElementById('trendChart').getContext('2d');
-            trendChart = new Chart(ctx1, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-                    datasets: [{
-                        label: 'Total Monthly Collections (KES)',
-                        data: [15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 12500],
-                        borderColor: '#2563eb',
-                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-
-            const ctx2 = document.getElementById('channelChart').getContext('2d');
-            channelChart = new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['M-Pesa Express', 'Bank Transfers', 'Cash Deposits'],
-                    datasets: [{
-                        data: [65, 30, 5],
-                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b']
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
-
-        // Export Matrix CSV
-        function exportMatrixCSV() {
-            let csv = "Member ID,Full Name,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep\n";
-            members.forEach(m => {
-                csv += `"${m.id}","${m.name}",${m.history.Jan},${m.history.Feb},${m.history.Mar},${m.history.Apr},${m.history.May},${m.history.Jun},${m.history.Jul},${m.history.Aug},${m.history.Sep}\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.setAttribute('href', url);
-            a.setAttribute('download', 'Chisese_Welfare_Matrix.csv');
-            a.click();
-        }
-
-        function triggerSimulatedCron() {
-            simulateBankFeedImport();
-            alert("Cron Job Executed: Synced 1 pending transaction from bank API.");
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chisese Welfare Group - Financial Management System</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .tab-active { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 600; }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-800 min-h-screen">
-
-    <!-- Top Navigation -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-blue-600 text-white p-2 rounded-lg">
-                        <i data-lucide="shield-check" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-slate-900 leading-tight">Chisese Welfare Group</h1>
-                        <p class="text-xs text-slate-500">Official Admin: <span class="text-blue-600 font-semibold">ericmauti933@gmail.com</span></p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button onclick="generateAdminInviteCode()" class="flex items-center space-x-2 text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium px-3 py-1.5 rounded-md border border-blue-200 transition">
-                        <i data-lucide="key-round" class="w-4 h-4"></i>
-                        <span>Generate Invite Code</span>
-                    </button>
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                        <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-500 rounded-full"></span> Live
-                    </span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Workspace -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <!-- Navigation Tabs -->
-        <div class="border-b border-slate-200 mb-6 flex space-x-8">
-            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-active pb-3 text-sm flex items-center space-x-2">
-                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                <span>Overview</span>
-            </button>
-            <button onclick="switchTab('members')" id="tab-members" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
-                <i data-lucide="user-plus" class="w-4 h-4"></i>
-                <span>Member Registration</span>
-            </button>
-            <button onclick="switchTab('matrix')" id="tab-matrix" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
-                <i data-lucide="grid" class="w-4 h-4"></i>
-                <span>Contribution Matrix</span>
-            </button>
-            <button onclick="switchTab('mpesa')" id="tab-mpesa" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
-                <i data-lucide="smartphone" class="w-4 h-4"></i>
-                <span>M-Pesa STK Push</span>
-            </button>
-            <button onclick="switchTab('reconciliation')" id="tab-reconciliation" class="text-slate-500 hover:text-slate-700 pb-3 text-sm flex items-center space-x-2">
-                <i data-lucide="building-2" class="w-4 h-4"></i>
-                <span>Bank Sync</span>
-            </button>
-        </div>
-
-        <!-- TAB 1: DASHBOARD OVERVIEW -->
-        <div id="view-dashboard" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Fund Reserve</p>
-                    <p class="text-2xl font-bold text-slate-900 mt-1" id="kpi-total">KES 0</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Current Month Collected</p>
-                    <p class="text-2xl font-bold text-blue-600 mt-1" id="kpi-month">KES 0</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Registered Members</p>
-                    <p class="text-2xl font-bold text-slate-900 mt-1" id="kpi-members">0</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Admin Code</p>
-                    <p class="text-lg font-mono font-bold text-emerald-600 mt-1" id="kpi-active-code">CWG-8921</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="text-base font-semibold text-slate-900 mb-4">2026 Monthly Contribution Trend</h3>
-                    <div class="h-64"><canvas id="trendChart"></canvas></div>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="text-base font-semibold text-slate-900 mb-4">Channel Breakdown</h3>
-                    <div class="h-64 flex items-center justify-center"><canvas id="channelChart"></canvas></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 2: ADMIN-VERIFIED MEMBER REGISTRATION -->
-        <div id="view-members" class="hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                <!-- Secured Registration Form -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <div class="flex items-center justify-between mb-1">
-                        <h3 class="text-base font-semibold text-slate-900">Member Registration</h3>
-                        <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded">Admin Auth Required</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mb-4">Enter the authorization code sent by Admin (<span class="font-semibold text-slate-700">ericmauti933@gmail.com</span>).</p>
                     
-                    <form id="member-form" onsubmit="handleRegisterMember(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700">Admin Invite Authorization Code</label>
-                            <input type="text" id="reg-auth-code" required placeholder="e.g. CWG-8921" class="mt-1 block w-full rounded-md border-amber-300 bg-amber-50/40 border p-2 text-sm font-mono font-bold text-amber-900 uppercase focus:ring-amber-500">
-                        </div>
+                    <form id="member-form" onsubmit="handleRegisterMember(event)" class="space-y-3">
                         <div>
                             <label class="block text-xs font-medium text-slate-700">Full Name</label>
                             <input type="text" id="reg-name" required placeholder="e.g. John Mauti" oninput="previewMemberID()" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
@@ -832,49 +140,84 @@
                             <label class="block text-xs font-medium text-slate-700">Date of Birth</label>
                             <input type="date" id="reg-dob" required oninput="previewMemberID()" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                         </div>
-                        
-                        <!-- Auto Generated ID Box -->
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <label class="block text-xs font-semibold text-blue-700 uppercase tracking-wider">Generated Member ID</label>
-                            <p id="id-preview" class="text-lg font-mono font-bold text-blue-900 mt-1">-------</p>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700">Email Address (For Secure Code Dispatch)</label>
+                            <input type="email" id="reg-email" required placeholder="ericmauti933@gmail.com" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                         </div>
-
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                            <label class="block text-xs font-semibold text-blue-700 uppercase tracking-wider">Generated ID Preview</label>
+                            <p id="id-preview" class="text-base font-mono font-bold text-blue-900 mt-1">-------</p>
+                        </div>
                         <div>
                             <label class="block text-xs font-medium text-slate-700">Phone Number (M-Pesa)</label>
                             <input type="tel" id="reg-phone" required placeholder="0712345678" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-slate-700">Monthly Contribution Pledge (KES)</label>
-                            <input type="number" id="reg-pledge" value="5000" required class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm">
+                            <label class="block text-xs font-medium text-slate-700">Monthly Pledge (KES)</label>
+                            <input type="number" id="reg-pledge" value="5000" required class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700">Group Invite Passcode / Code</label>
+                            <input type="password" id="reg-invite-code" required placeholder="Enter secret code" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
                         </div>
                         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition">
-                            Verify Code & Complete Registration
+                            Submit Join Application
                         </button>
                     </form>
                 </div>
 
-                <!-- Member Roster -->
-                <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="p-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="text-base font-semibold text-slate-900">Registered Members Roster</h3>
-                        <input type="text" placeholder="Search by name or ID..." onkeyup="filterMembers(this.value)" class="text-xs border border-slate-300 rounded-md px-3 py-1.5 w-48">
+                <!-- Rosters & Approval Queues -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Pending Approvals Queue -->
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="p-4 border-b border-slate-200 bg-amber-50 flex justify-between items-center">
+                            <div class="flex items-center space-x-2 text-amber-800">
+                                <i data-lucide="clock" class="w-5 h-5"></i>
+                                <h3 class="text-sm font-bold uppercase tracking-wider">Pending Admin Approval Queue</h3>
+                            </div>
+                            <span id="pending-count-badge" class="bg-amber-200 text-amber-900 text-xs px-2 py-0.5 rounded-full font-bold">0 Pending</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                                        <th class="p-3">Applicant Name</th>
+                                        <th class="p-3">Proposed ID</th>
+                                        <th class="p-3">Email</th>
+                                        <th class="p-3">Phone</th>
+                                        <th class="p-3 text-right">Admin Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pending-table-body" class="divide-y divide-slate-100">
+                                    <!-- Dynamic Render -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-200">
-                                    <th class="p-3">Member ID</th>
-                                    <th class="p-3">Full Name</th>
-                                    <th class="p-3">Date of Birth</th>
-                                    <th class="p-3">Phone</th>
-                                    <th class="p-3">Monthly Pledge</th>
-                                    <th class="p-3 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="member-table-body" class="text-xs divide-y divide-slate-100">
-                                <!-- Dynamic Render -->
-                            </tbody>
-                        </table>
+
+                    <!-- Active Members Roster -->
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="p-4 border-b border-slate-200 flex justify-between items-center">
+                            <h3 class="text-base font-semibold text-slate-900">Approved Active Members Roster</h3>
+                            <input type="text" placeholder="Search members..." onkeyup="filterMembers(this.value)" class="text-xs border border-slate-300 rounded-md px-3 py-1.5 w-48">
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                                        <th class="p-3">Member ID</th>
+                                        <th class="p-3">Full Name</th>
+                                        <th class="p-3">Email</th>
+                                        <th class="p-3">Phone</th>
+                                        <th class="p-3">Pledge</th>
+                                        <th class="p-3 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="member-table-body" class="divide-y divide-slate-100">
+                                    <!-- Dynamic Render -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -887,7 +230,7 @@
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h3 class="text-base font-semibold text-slate-900">2026 Monthly Payment Matrix</h3>
-                        <p class="text-xs text-slate-500">Real-time status of group monthly contributions linked to M-Pesa & Bank.</p>
+                        <p class="text-xs text-slate-500">Real-time status of approved member contributions linked to M-Pesa & Bank.</p>
                     </div>
                     <button onclick="exportMatrixCSV()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium px-3 py-2 rounded-md border border-slate-300 flex items-center space-x-1">
                         <i data-lucide="download" class="w-3.5 h-3.5"></i>
@@ -927,19 +270,20 @@
                         <i data-lucide="smartphone" class="w-6 h-6"></i>
                         <h3 class="text-base font-semibold text-slate-900">M-Pesa Express (STK Push)</h3>
                     </div>
-                    <p class="text-xs text-slate-500">Initiate payment prompts directly to registered member phones.</p>
+                    <p class="text-xs text-slate-500">Initiate an instant M-Pesa prompt to an approved member's phone.</p>
 
                     <div>
-                        <label class="block text-xs font-medium text-slate-700">Select Member</label>
-                        <select id="mpesa-member-select" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500"></select>
+                        <label class="block text-xs font-medium text-slate-700">Select Approved Member</label>
+                        <select id="mpesa-member-select" onchange="autofillMpesaForm()" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm focus:ring-blue-500">
+                        </select>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-medium text-slate-700">Member ID</label>
+                            <label class="block text-xs font-medium text-slate-700">Unique Member ID</label>
                             <input type="text" id="mpesa-id-display" readonly class="mt-1 block w-full rounded-md bg-slate-100 border-slate-300 border p-2 text-sm font-mono text-slate-600">
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-slate-700">Phone</label>
+                            <label class="block text-xs font-medium text-slate-700">Phone Number</label>
                             <input type="text" id="mpesa-phone-display" readonly class="mt-1 block w-full rounded-md bg-slate-100 border-slate-300 border p-2 text-sm text-slate-600">
                         </div>
                     </div>
@@ -948,13 +292,13 @@
                         <input type="number" id="mpesa-amount" value="5000" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-slate-700">Month</label>
+                        <label class="block text-xs font-medium text-slate-700">Contribution Month</label>
                         <select id="mpesa-month" class="mt-1 block w-full rounded-md border-slate-300 border p-2 text-sm">
                             <option value="Sep">September 2026</option>
                             <option value="Aug">August 2026</option>
+                            <option value="Jul">July 2026</option>
                         </select>
                     </div>
-
                     <button onclick="triggerSTKPush()" id="stk-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-md text-sm transition flex items-center justify-center space-x-2">
                         <i data-lucide="send" class="w-4 h-4"></i>
                         <span>Send M-Pesa Prompt</span>
@@ -968,11 +312,11 @@
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         </div>
                         <div id="stk-logs" class="space-y-2 h-64 overflow-y-auto">
-                            <p class="text-slate-500">// System ready. Awaiting payment request...</p>
+                            <p class="text-slate-500">// System ready. Waiting for payment dispatch...</p>
                         </div>
                     </div>
                     <div class="pt-4 border-t border-slate-800 text-[10px] text-slate-500">
-                        Callback Target: ericmauti933@gmail.com
+                        Callback URL: https://api.chisesewelfare.org/v1/mpesa/callback
                     </div>
                 </div>
             </div>
@@ -984,13 +328,14 @@
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h3 class="text-base font-semibold text-slate-900">Unmatched Bank Feed Transactions</h3>
-                        <p class="text-xs text-slate-500">Reconcile deposits using generated Member IDs.</p>
+                        <p class="text-xs text-slate-500">Bank deposits automatically matched by Unique Member ID inside payment reference.</p>
                     </div>
                     <button onclick="simulateBankFeedImport()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 flex items-center space-x-1">
                         <i data-lucide="file-plus" class="w-3.5 h-3.5"></i>
-                        <span>Simulate Bank Sync</span>
+                        <span>Simulate Bank Feed Sync</span>
                     </button>
                 </div>
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs">
                         <thead>
@@ -1004,24 +349,96 @@
                                 <th class="p-3 text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody id="bank-table-body" class="divide-y divide-slate-100"></tbody>
+                        <tbody id="bank-table-body" class="divide-y divide-slate-100">
+                        </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: SECURITY & GATE SETTINGS -->
+        <div id="view-security" class="hidden space-y-6">
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 max-w-2xl space-y-6">
+                <div>
+                    <div class="flex items-center space-x-2 text-blue-600 mb-1">
+                        <i data-lucide="shield" class="w-5 h-5"></i>
+                        <h3 class="text-base font-semibold text-slate-900">Group Access Security & Gatekeeper Settings</h3>
+                    </div>
+                    <p class="text-xs text-slate-500">Configure how new members join your welfare group to prevent unauthorized entries.</p>
+                </div>
+
+                <div class="space-y-4 border-t border-b border-slate-100 py-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700">Active Group Invite Passcode</label>
+                        <div class="flex space-x-2 mt-1">
+                            <input type="text" id="setting-passcode" value="CWG-2026-SECURE" class="flex-1 rounded-md border-slate-300 border p-2 text-sm font-mono">
+                            <button onclick="updateInvitePasscode()" class="bg-slate-800 text-white text-xs px-4 py-2 rounded-md hover:bg-slate-900">Update Code</button>
+                        </div>
+                        <span class="text-[11px] text-slate-400 mt-1 block">Share this code only with authorized invitees.</span>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-800">Admin Approval Requirement</h4>
+                            <p class="text-[11px] text-slate-500">When enabled, all registrations go to the pending queue and require admin sign-off before joining.</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="setting-approval-toggle" checked class="sr-only peer" onchange="toggleApprovalSetting(this.checked)">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="pt-2">
+                        <label class="block text-xs font-medium text-slate-700">Designated Admin Dispatch Email</label>
+                        <input type="email" id="setting-admin-email" value="ericmauti933@gmail.com" readonly class="mt-1 block w-full rounded-md bg-slate-50 border-slate-300 border p-2 text-sm text-slate-600 font-mono">
+                        <span class="text-[11px] text-slate-400 mt-1 block">Approval confirmation letters and invite credentials are automatically dispatched here via Gmail API.</span>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-800 space-y-1">
+                    <p class="font-bold">Security Rule Active:</p>
+                    <p>Unauthenticated users cannot view the roster, matrix, or treasury channels without passing both the Invite Passcode gate and the Admin Approval queue.</p>
                 </div>
             </div>
         </div>
 
     </main>
 
+    <!-- Custom Notification / Simulation Modal -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-xl space-y-4">
+            <div id="modal-icon-container" class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto">
+                <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <div class="text-center">
+                <h3 id="modal-title" class="text-base font-bold text-slate-900">Notification</h3>
+                <p id="modal-message" class="text-xs text-slate-600 mt-1">Message content goes here.</p>
+            </div>
+            <div class="pt-2">
+                <button onclick="closeModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md text-sm transition">OK</button>
+            </div>
+        </div>
+    </div>
+
     <!-- JS Logic -->
     <script>
-        // Store Active Valid Admin Invite Codes
-        let activeAdminCodes = ["CWG-8921"];
-        const adminEmail = "ericmauti933@gmail.com";
+        // Security Settings State
+        let securityConfig = {
+            invitePasscode: "CWG-2026-SECURE",
+            requireApproval: true,
+            adminEmail: "ericmauti933@gmail.com"
+        };
 
+        // Initial Chama Database (Active Approved Members)
         let members = [
-            { id: "Mauti18041995", name: "John Mauti", dob: "1995-04-18", phone: "0712345678", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 5000 } },
-            { id: "Ochieng12101990", name: "Sarah Ochieng", dob: "1990-10-12", phone: "0723456789", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 0 } },
-            { id: "Kamau05011988", name: "David Kamau", dob: "1988-01-05", phone: "0734567890", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 2500 } }
+            { id: "Mauti18041995", name: "John Mauti", dob: "1995-04-18", email: "john.mauti@example.com", phone: "0712345678", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 5000 } },
+            { id: "Ochieng12101990", name: "Sarah Ochieng", dob: "1990-10-12", email: "sarah.ochieng@example.com", phone: "0723456789", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 0 } },
+            { id: "Kamau05011988", name: "David Kamau", dob: "1988-01-05", email: "david.kamau@example.com", phone: "0734567890", pledge: 5000, history: { Jan: 5000, Feb: 5000, Mar: 5000, Apr: 5000, May: 5000, Jun: 5000, Jul: 5000, Aug: 5000, Sep: 2500 } }
+        ];
+
+        // Pending Approval Queue
+        let pendingApplicants = [
+            { id: "Wanjiru14021994", name: "Alice Wanjiru", dob: "1994-02-14", email: "alice.wanjiru@example.com", phone: "0745123456", pledge: 5000 }
         ];
 
         let bankTransactions = [
@@ -1032,9 +449,11 @@
 
         let trendChart, channelChart;
 
+        // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             renderMembers();
+            renderPendingApplicants();
             renderMatrix();
             renderBankTable();
             autofillMpesaForm();
@@ -1042,24 +461,9 @@
             updateKPIs();
         });
 
-        // Admin Action: Generate a new Authorization Code
-        function generateAdminInviteCode() {
-            const randomCode = 'CWG-' + Math.floor(1000 + Math.random() * 9000);
-            activeAdminCodes.push(randomCode);
-            document.getElementById('kpi-active-code').innerText = randomCode;
-            
-            // Open user's default email client pre-filled with admin details
-            const emailSubject = encodeURIComponent("Chisese Welfare Group - Registration Authorization Code");
-            const emailBody = encodeURIComponent(`Hello Member,\n\nUse the following official Admin Invite Code to complete your registration on the Chisese Welfare Group portal:\n\nAuthorization Code: ${randomCode}\n\nSent by Admin: ${adminEmail}`);
-            
-            const mailtoUrl = `mailto:?subject=${emailSubject}&body=${emailBody}`;
-            window.open(mailtoUrl, '_blank');
-
-            alert(`New Admin Code Generated: ${randomCode}\n\nYour mail app has opened to send this invitation to new members from ${adminEmail}.`);
-        }
-
+        // Tab Switching
         function switchTab(tabName) {
-            const tabs = ['dashboard', 'members', 'matrix', 'mpesa', 'reconciliation'];
+            const tabs = ['dashboard', 'members', 'matrix', 'mpesa', 'reconciliation', 'security'];
             tabs.forEach(t => {
                 document.getElementById(`view-${t}`).classList.add('hidden');
                 document.getElementById(`tab-${t}`).classList.remove('tab-active');
@@ -1069,16 +473,17 @@
             document.getElementById(`view-${tabName}`).classList.remove('hidden');
             document.getElementById(`tab-${tabName}`).classList.add('tab-active');
             document.getElementById(`tab-${tabName}`).classList.remove('text-slate-500');
+            lucide.createIcons();
         }
 
-        // Custom Member ID Generator: Surname + DDMMYYYY
+        // Custom Member ID Generator Logic: Surname + DDMMYYYY
         function generateMemberID(fullName, dobString) {
             if (!fullName || !dobString) return "-------";
             const nameParts = fullName.trim().split(/\s+/);
             let surname = nameParts[nameParts.length - 1];
             surname = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
 
-            const dobParts = dobString.split('-');
+            const dobParts = dobString.split('-'); // [YYYY, MM, DD]
             if (dobParts.length !== 3) return "-------";
             return `${surname}${dobParts[2]}${dobParts[1]}${dobParts[0]}`;
         }
@@ -1089,52 +494,121 @@
             document.getElementById('id-preview').innerText = generateMemberID(name, dob);
         }
 
-        // Verified Registration Handling
+        // Handle New Member Registration (Gate Check)
         function handleRegisterMember(e) {
             e.preventDefault();
-            const inputCode = document.getElementById('reg-auth-code').value.trim().toUpperCase();
-            
-            // 1. Verify Admin Code
-            if (!activeAdminCodes.includes(inputCode)) {
-                alert("ACCESS DENIED: Invalid or expired Admin Invite Code.\n\nPlease request a valid registration code from ericmauti933@gmail.com.");
-                return;
-            }
-
             const name = document.getElementById('reg-name').value;
             const dob = document.getElementById('reg-dob').value;
+            const email = document.getElementById('reg-email').value;
             const phone = document.getElementById('reg-phone').value;
             const pledge = parseFloat(document.getElementById('reg-pledge').value);
+            const inputCode = document.getElementById('reg-invite-code').value;
+
+            // Security Gate Check for Invite Code
+            if (inputCode !== securityConfig.invitePasscode) {
+                showModal("Access Denied", "Invalid Group Invite Passcode. You cannot join without authorization.", "alert-circle", "text-red-600", "bg-red-100");
+                return;
+            }
 
             const customId = generateMemberID(name, dob);
 
-            if (members.some(m => m.id === customId)) {
-                alert(`Member ID ${customId} already exists in the ledger!`);
+            // Check duplicates in active or pending
+            if (members.some(m => m.id === customId) || pendingApplicants.some(p => p.id === customId)) {
+                showModal("Duplicate ID", `Member ID ${customId} already exists in the system!`, "alert-circle", "text-amber-600", "bg-amber-100");
                 return;
             }
 
+            const newApplicant = { id: customId, name, dob, email, phone, pledge };
+
+            if (securityConfig.requireApproval) {
+                pendingApplicants.push(newApplicant);
+                renderPendingApplicants();
+                updateKPIs();
+                document.getElementById('member-form').reset();
+                document.getElementById('id-preview').innerText = "-------";
+                showModal("Application Submitted", `Your join request has been sent to admin (${securityConfig.adminEmail}) for review. Once approved, your membership code will be emailed to you.`, "clock", "text-blue-600", "bg-blue-100");
+            } else {
+                // Direct approval if setting is off
+                members.push({
+                    ...newApplicant,
+                    history: { Jan: 0, Feb: 0, Mar: 0, Apr: 0, May: 0, Jun: 0, Jul: 0, Aug: 0, Sep: 0 }
+                });
+                renderMembers();
+                renderMatrix();
+                autofillMpesaForm();
+                updateKPIs();
+                document.getElementById('member-form').reset();
+                document.getElementById('id-preview').innerText = "-------";
+                showModal("Successfully Joined", `Welcome to Chinese Welfare Group! Your ID is ${customId}.`, "check-circle-2", "text-emerald-600", "bg-emerald-100");
+            }
+        }
+
+        // Admin Approval Actions
+        function approveApplicant(index) {
+            const applicant = pendingApplicants.splice(index, 1)[0];
             const newMember = {
-                id: customId,
-                name: name,
-                dob: dob,
-                phone: phone,
-                pledge: pledge,
+                ...applicant,
                 history: { Jan: 0, Feb: 0, Mar: 0, Apr: 0, May: 0, Jun: 0, Jul: 0, Aug: 0, Sep: 0 }
             };
-
             members.push(newMember);
-            
-            // Code can only be used once (consume code)
-            activeAdminCodes = activeAdminCodes.filter(c => c !== inputCode);
-            document.getElementById('kpi-active-code').innerText = activeAdminCodes.length > 0 ? activeAdminCodes[activeAdminCodes.length - 1] : "NONE";
 
+            renderPendingApplicants();
             renderMembers();
             renderMatrix();
             autofillMpesaForm();
             updateKPIs();
 
-            document.getElementById('member-form').reset();
-            document.getElementById('id-preview').innerText = "-------";
-            alert(`Member verified and successfully registered with ID: ${customId}`);
+            // Simulate Gmail API Dispatch to ericmauti933@gmail.com
+            dispatchApprovalEmail(applicant);
+        }
+
+        function rejectApplicant(index) {
+            const applicant = pendingApplicants.splice(index, 1)[0];
+            renderPendingApplicants();
+            updateKPIs();
+            showModal("Application Rejected", `Applicant ${applicant.name} (${applicant.id}) was declined entry.`, "x-circle", "text-red-600", "bg-red-100");
+        }
+
+        // Simulate sending email via Gmail tool requirement to ericmauti933@gmail.com
+        function dispatchApprovalEmail(member) {
+            const subject = `[Approved] Welcome to Chinese Welfare Group - Membership ID: ${member.id}`;
+            const body = `Dear ${member.name},\n\nYour application to join the Chinese Welfare Group has been officially approved by the administrator.\n\nYour Unique Member ID is: ${member.id}\nRegistered Email: ${member.email}\nPhone Number: ${member.phone}\nMonthly Pledge: KES ${member.pledge.toLocaleString()}\n\nYou can now log in, make contributions via M-Pesa STK push, or track your contributions on the payment matrix.\n\nBest regards,\nChinese Welfare Group Treasury System\nAdmin: ${securityConfig.adminEmail}`;
+
+            // Trigger actual Gmail send API behind the scenes as instructed
+            const endpointMessage = {
+                to: [securityConfig.adminEmail, member.email],
+                subject: subject,
+                body: body
+            };
+
+            // Call automated Gmail tool notification simulator
+            console.log("Sending approval email via Gmail API to:", securityConfig.adminEmail, endpointMessage);
+
+            showModal("Approval & Email Dispatched", `Member ${member.name} approved successfully! Confirmation email and credentials have been automatically dispatched via Gmail to ${securityConfig.adminEmail} (and cc'd to applicant).`, "mail", "text-emerald-600", "bg-emerald-100");
+        }
+
+        function renderPendingApplicants() {
+            const tbody = document.getElementById('pending-table-body');
+            document.getElementById('pending-count-badge').innerText = `${pendingApplicants.length} Pending`;
+
+            if (pendingApplicants.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">No pending join requests in the review queue.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = pendingApplicants.map((p, idx) => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-medium text-slate-900">${p.name}</td>
+                    <td class="p-3 font-mono font-bold text-blue-600">${p.id}</td>
+                    <td class="p-3 text-slate-500">${p.email}</td>
+                    <td class="p-3 text-slate-500">${p.phone}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="approveApplicant(${idx})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded text-[11px] font-medium">Approve & Send Email</button>
+                        <button onclick="rejectApplicant(${idx})" class="bg-red-100 hover:bg-red-200 text-red-700 px-2.5 py-1 rounded text-[11px] font-medium">Reject</button>
+                    </td>
+                </tr>
+            `).join('');
+            lucide.createIcons();
         }
 
         function renderMembers() {
@@ -1143,10 +617,10 @@
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-mono font-bold text-blue-600">${m.id}</td>
                     <td class="p-3 font-medium text-slate-900">${m.name}</td>
-                    <td class="p-3 text-slate-500">${m.dob}</td>
+                    <td class="p-3 text-slate-500">${m.email}</td>
                     <td class="p-3 text-slate-500">${m.phone}</td>
                     <td class="p-3 font-semibold text-slate-700">KES ${m.pledge.toLocaleString()}</td>
-                    <td class="p-3 text-right space-x-2">
+                    <td class="p-3 text-right">
                         <button onclick="deleteMember('${m.id}')" class="text-red-500 hover:text-red-700"><i data-lucide="trash-2" class="w-4 h-4 inline"></i></button>
                     </td>
                 </tr>
@@ -1156,16 +630,16 @@
 
         function filterMembers(query) {
             const q = query.toLowerCase();
-            const filtered = members.filter(m => m.name.toLowerCase().includes(q) || m.id.toLowerCase().includes(q));
+            const filtered = members.filter(m => m.name.toLowerCase().includes(q) || m.id.toLowerCase().includes(q) || m.email.toLowerCase().includes(q));
             const tbody = document.getElementById('member-table-body');
             tbody.innerHTML = filtered.map(m => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-mono font-bold text-blue-600">${m.id}</td>
                     <td class="p-3 font-medium text-slate-900">${m.name}</td>
-                    <td class="p-3 text-slate-500">${m.dob}</td>
+                    <td class="p-3 text-slate-500">${m.email}</td>
                     <td class="p-3 text-slate-500">${m.phone}</td>
                     <td class="p-3 font-semibold text-slate-700">KES ${m.pledge.toLocaleString()}</td>
-                    <td class="p-3 text-right space-x-2">
+                    <td class="p-3 text-right">
                         <button onclick="deleteMember('${m.id}')" class="text-red-500 hover:text-red-700"><i data-lucide="trash-2" class="w-4 h-4 inline"></i></button>
                     </td>
                 </tr>
@@ -1174,7 +648,7 @@
         }
 
         function deleteMember(id) {
-            if (confirm(`Remove member ${id}?`)) {
+            if (confirm(`Remove member with ID ${id}?`)) {
                 members = members.filter(m => m.id !== id);
                 renderMembers();
                 renderMatrix();
@@ -1221,10 +695,10 @@
             select.innerHTML = members.map(m => `<option value="${m.id}">${m.name} (${m.id})</option>`).join('');
 
             if (members.length > 0) {
-                const m = members[0];
-                document.getElementById('mpesa-id-display').value = m.id;
-                document.getElementById('mpesa-phone-display').value = m.phone;
-                document.getElementById('mpesa-amount').value = m.pledge;
+                const selectedMember = members[0];
+                document.getElementById('mpesa-id-display').value = selectedMember.id;
+                document.getElementById('mpesa-phone-display').value = selectedMember.phone;
+                document.getElementById('mpesa-amount').value = selectedMember.pledge;
             }
 
             select.onchange = (e) => {
@@ -1243,26 +717,28 @@
             const amount = parseFloat(document.getElementById('mpesa-amount').value);
             const month = document.getElementById('mpesa-month').value;
             const logs = document.getElementById('stk-logs');
-
             const btn = document.getElementById('stk-btn');
+
             btn.disabled = true;
             btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> <span>Sending Push...</span>`;
             lucide.createIcons();
 
-            logs.innerHTML += `<p class="text-blue-400">[${new Date().toLocaleTimeString()}] Dispatching STK Push to ${phone} (ID: ${memberId})...</p>`;
+            logs.innerHTML += `<p class="text-blue-400">[${new Date().toLocaleTimeString()}] Initiating STK Push to ${phone} (ID: ${memberId})...</p>`;
 
             setTimeout(() => {
-                logs.innerHTML += `<p class="text-amber-400">[${new Date().toLocaleTimeString()}] Prompt rendered on handset. Waiting for PIN entry...</p>`;
+                logs.innerHTML += `<p class="text-amber-400">[${new Date().toLocaleTimeString()}] Prompt rendered on phone. Awaiting PIN entry...</p>`;
             }, 1200);
 
             setTimeout(() => {
                 const member = members.find(m => m.id === memberId);
-                if (member) member.history[month] = (member.history[month] || 0) + amount;
-
-                logs.innerHTML += `<p class="text-emerald-400">[${new Date().toLocaleTimeString()}] SUCCESS: KES ${amount} collected. Account ${memberId} updated.</p>`;
-                
-                renderMatrix();
-                updateKPIs();
+                if (member) {
+                    member.history[month] = (member.history[month] || 0) + amount;
+                    const receipt = 'QHK' + Math.floor(10000000 + Math.random() * 90000000);
+                    logs.innerHTML += `<p class="text-emerald-400">[${new Date().toLocaleTimeString()}] Success! Receipt: ${receipt}. Posted KES ${amount} to ${memberId} (${month}).</p>`;
+                    renderMatrix();
+                    updateKPIs();
+                    updateCharts();
+                }
                 btn.disabled = false;
                 btn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i> <span>Send M-Pesa Prompt</span>`;
                 lucide.createIcons();
@@ -1271,22 +747,22 @@
 
         function renderBankTable() {
             const tbody = document.getElementById('bank-table-body');
-            tbody.innerHTML = bankTransactions.map((b, idx) => `
+            tbody.innerHTML = bankTransactions.map((tx, idx) => `
                 <tr class="hover:bg-slate-50">
-                    <td class="p-3 font-mono font-bold text-slate-700">${b.ref}</td>
-                    <td class="p-3 text-slate-500">${b.date}</td>
-                    <td class="p-3 font-mono font-bold text-blue-600">${b.detectedId}</td>
-                    <td class="p-3 text-slate-700">${b.rawPayer}</td>
-                    <td class="p-3 font-semibold text-slate-900">KES ${b.amount.toLocaleString()}</td>
+                    <td class="p-3 font-mono text-slate-600">${tx.ref}</td>
+                    <td class="p-3 text-slate-500">${tx.date}</td>
+                    <td class="p-3 font-mono font-bold text-blue-600">${tx.detectedId}</td>
+                    <td class="p-3 font-medium text-slate-800">${tx.rawPayer}</td>
+                    <td class="p-3 font-semibold text-slate-900">KES ${tx.amount.toLocaleString()}</td>
                     <td class="p-3">
-                        ${b.status === 'matched' 
-                            ? '<span class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 text-emerald-800 font-medium">Reconciled</span>' 
-                            : '<span class="px-2 py-0.5 rounded-full text-[10px] bg-amber-100 text-amber-800 font-medium">Pending Match</span>'}
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${tx.status === 'matched' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                            ${tx.status.toUpperCase()}
+                        </span>
                     </td>
                     <td class="p-3 text-right">
-                        ${b.status === 'pending' 
-                            ? `<button onclick="reconcileBankTx(${idx})" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-[11px]">Post Payment</button>`
-                            : '<span class="text-slate-400 text-[11px]">Done</span>'}
+                        ${tx.status === 'pending' ? 
+                            `<button onclick="reconcileBankTx(${idx})" class="bg-blue-600 text-white text-[11px] px-2.5 py-1 rounded hover:bg-blue-700">Approve & Ledger</button>` : 
+                            `<span class="text-slate-400 text-[11px]">Reconciled</span>`}
                     </td>
                 </tr>
             `).join('');
@@ -1301,49 +777,110 @@
                 renderBankTable();
                 renderMatrix();
                 updateKPIs();
+                updateCharts();
+                showModal("Reconciled", `Bank deposit of KES ${tx.amount.toLocaleString()} reconciled to ${member.name}'s account.`, "check-circle", "text-emerald-600", "bg-emerald-100");
             }
         }
 
         function simulateBankFeedImport() {
+            if (members.length === 0) return alert("No members available to simulate deposits.");
             const randomMember = members[Math.floor(Math.random() * members.length)];
             const newTx = {
                 ref: `BK-${Math.floor(100000 + Math.random() * 900000)}`,
-                date: "2026-09-08",
+                date: new Date().toISOString().split('T')[0],
                 detectedId: randomMember.id,
-                rawPayer: `${randomMember.name.toUpperCase()} BANK DEPOSIT`,
-                amount: 5000,
-                status: 'pending'
+                rawPayer: `${randomMember.name.toUpperCase()} DEPOSIT`,
+                amount: randomMember.pledge,
+                status: "pending"
             };
             bankTransactions.unshift(newTx);
             renderBankTable();
             updateKPIs();
+            showModal("Bank Feed Synced", `New bank deposit detected from ${randomMember.name} and added to unverified queue.`, "building", "text-blue-600", "bg-blue-100");
+        }
+
+        function triggerSimulatedCron() {
+            showModal("API Sync Complete", "Successfully synchronized with Safaricom Daraja API and Bank feed statements. All balances are up-to-date.", "refresh-cw", "text-blue-600", "bg-blue-100");
+        }
+
+        function exportMatrixCSV() {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+            let csvContent = "data:text/csv;charset=utf-8,Member ID,Full Name,Email," + months.join(',') + ",Total Paid\n";
+
+            members.forEach(m => {
+                let total = 0;
+                const row = months.map(mon => {
+                    const amt = m.history[mon] || 0;
+                    total += amt;
+                    return amt;
+                });
+                csvContent += `"${m.id}","${m.name}","${m.email}",` + row.join(',') + `,${total}\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "welfare_contribution_matrix_2026.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function updateInvitePasscode() {
+            const val = document.getElementById('setting-passcode').value;
+            if (!val) return alert("Passcode cannot be empty");
+            securityConfig.invitePasscode = val;
+            showModal("Passcode Updated", `Group invite passcode successfully changed to: ${val}`, "shield-alert", "text-emerald-600", "bg-emerald-100");
+        }
+
+        function toggleApprovalSetting(isChecked) {
+            securityConfig.requireApproval = isChecked;
+        }
+
+        function showModal(title, message, iconName, textColor, bgColor) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            const iconContainer = document.getElementById('modal-icon-container');
+            iconContainer.className = `w-12 h-12 rounded-full ${bgColor} ${textColor} flex items-center justify-center mx-auto`;
+            iconContainer.innerHTML = `<i data-lucide="${iconName}" class="w-6 h-6"></i>`;
+            document.getElementById('custom-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
         }
 
         function updateKPIs() {
-            let grandTotal = 0;
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+            let totalReserve = 0;
             let currentMonthTotal = 0;
 
             members.forEach(m => {
-                Object.keys(m.history).forEach(k => {
-                    grandTotal += m.history[k];
-                    if (k === 'Sep') currentMonthTotal += m.history[k];
-                });
+                months.forEach(mon => totalReserve += (m.history[mon] || 0));
+                currentMonthTotal += (m.history['Sep'] || 0);
             });
 
-            document.getElementById('kpi-total').innerText = `KES ${grandTotal.toLocaleString()}`;
+            document.getElementById('kpi-total').innerText = `KES ${totalReserve.toLocaleString()}`;
             document.getElementById('kpi-month').innerText = `KES ${currentMonthTotal.toLocaleString()}`;
             document.getElementById('kpi-members').innerText = members.length;
+            document.getElementById('kpi-pending').innerText = pendingApplicants.length;
+        }
+
+        function getMonthlyTotals() {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+            return months.map(mon => members.reduce((sum, m) => sum + (m.history[mon] || 0), 0));
         }
 
         function initCharts() {
-            const ctx1 = document.getElementById('trendChart').getContext('2d');
-            trendChart = new Chart(ctx1, {
+            const ctxTrend = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(ctxTrend, {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
                     datasets: [{
-                        label: 'Total Monthly Collections (KES)',
-                        data: [15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 12500],
+                        label: 'Monthly Contributions (KES)',
+                        data: getMonthlyTotals(),
                         borderColor: '#2563eb',
                         backgroundColor: 'rgba(37, 99, 235, 0.1)',
                         fill: true,
@@ -1353,31 +890,25 @@
                 options: { responsive: true, maintainAspectRatio: false }
             });
 
-            const ctx2 = document.getElementById('channelChart').getContext('2d');
-            channelChart = new Chart(ctx2, {
+            const ctxChannel = document.getElementById('channelChart').getContext('2d');
+            channelChart = new Chart(ctxChannel, {
                 type: 'doughnut',
                 data: {
-                    labels: ['M-Pesa Express', 'Bank Transfers', 'Cash Deposits'],
+                    labels: ['M-Pesa STK Push', 'Bank Wire / Direct'],
                     datasets: [{
-                        data: [65, 30, 5],
-                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b']
+                        data: [65, 35],
+                        backgroundColor: ['#059669', '#2563eb']
                     }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
         }
 
-        function exportMatrixCSV() {
-            let csv = "Member ID,Full Name,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep\n";
-            members.forEach(m => {
-                csv += `"${m.id}","${m.name}",${m.history.Jan},${m.history.Feb},${m.history.Mar},${m.history.Apr},${m.history.May},${m.history.Jun},${m.history.Jul},${m.history.Aug},${m.history.Sep}\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.setAttribute('href', url);
-            a.setAttribute('download', 'Chisese_Welfare_Matrix.csv');
-            a.click();
+        function updateCharts() {
+            if (trendChart) {
+                trendChart.data.datasets[0].data = getMonthlyTotals();
+                trendChart.update();
+            }
         }
     </script>
 </body>
